@@ -64,6 +64,10 @@ public class CalculoImpostos {
 			usuario = calculoImpostosDomain.executaCalculosParaUsuario(tabelaImpostos);
 	        usuario = calculoImpostosDomain.save(22L, "Medio", "Classe média sofre", false, usuario);
         } catch (Exception e) {
+        	System.out.println(System.getenv("OPENSHIFT_MONGODB_DB_HOST"));
+        System.out.println(System.getenv("OPENSHIFT_MONGODB_DB_PORT"));
+        System.out.println(System.getenv("OPENSHIFT_MONGODB_DB_USERNAME"));
+        System.out.println(System.getenv("OPENSHIFT_MONGODB_DB_PASSWORD"));
 	        e.printStackTrace();
         }
 		
