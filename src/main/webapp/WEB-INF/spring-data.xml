@@ -19,20 +19,6 @@
 
 	<bean id="deployProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean"  p:location="/WEB-INF/spring-data.properties" />					
 	
-	<tx:annotation-driven />
-   
-   	<context:property-placeholder properties-ref="deployProperties" />
-
-	<!-- Activate Spring Data MongoDB repository support -->
-	<mongo:repositories	base-package="br.com.art4dev.iples.impostometropessoal.repository" />
-	
-	<!-- MongoDB host -->
-	<mongo:mongo id="mongo" host="${mongo.host.name}" port="${mongo.host.port}" />
-
-	<!-- Template for performing MongoDB operations -->
-	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate"
-		c:mongo-ref="mongo" c:databaseName="${mongo.db.name}" 
-	    c:username="${mongo.db.username}"  c:password="${mongo.db.password}" />
 
 	<!-- Service for initializing MongoDB with sample data using MongoTemplate -->
 	<!-- <bean id="initMongoService" class="org.krams.service.InitMongoService" 
