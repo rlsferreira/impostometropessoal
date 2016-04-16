@@ -22,7 +22,7 @@
 
 	<!-- Activate Spring Data MongoDB repository support -->
 	<mongo:repositories
-		base-package="br.com.art4dev.iples.impostometropessoal.repository" />
+		base-package="br.com.art4dev.iples.impostometropessoal.repository"  mongo-template-ref="mongoTemplate"/>
 	
 	<!-- MongoDB host -->
 	<mongo:mongo host="${OPENSHIFT_NOSQL_DB_HOST}" port="${OPENSHIFT_NOSQL_DB_PORT}" />
@@ -30,7 +30,7 @@
 	<!-- Template for performing MongoDB operations -->
 	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate"
 		c:mongo-ref="mongo" c:databaseName="${mongo.db.name}" 
-	    c:username="${OPENSHIFT_NOSQL_DB_USERNAME}"  c:password="${OPENSHIFT_NOSQL_DB_PASSWORD}" 		/>
+	    c:username="${OPENSHIFT_NOSQL_DB_USERNAME}"  c:password="${OPENSHIFT_NOSQL_DB_PASSWORD}" />
 
 	<!-- Service for initializing MongoDB with sample data using MongoTemplate -->
 	<!-- <bean id="initMongoService" class="org.krams.service.InitMongoService" 
