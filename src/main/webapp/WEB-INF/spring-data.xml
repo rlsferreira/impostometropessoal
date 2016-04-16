@@ -22,15 +22,15 @@
 
 	<!-- Activate Spring Data MongoDB repository support -->
 	<mongo:repositories
-		base-package="br.com.art4dev.iples.impostometropessoal.repository"  mongo-template-ref="mongoTemplate"/>
+		base-package="br.com.art4dev.iples.impostometropessoal.repository" />
 	
 	<!-- MongoDB host -->
-	<mongo:mongo host="127.6.139.2" port="27017" />
+	<mongo:mongo id="mongo" host="${mongo.host.name}" port="${mongo.host.port}" />
 
 	<!-- Template for performing MongoDB operations -->
 	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate"
-		c:mongo-ref="mongo" c:databaseName="impostometropessoaldb" 
-	    c:username="admin"  c:password="63zqlvjkLylB" />
+		c:mongo-ref="mongo" c:databaseName="${mongo.db.name}" 
+	    c:username="${mongo.db.username}"  c:password="${mongo.db.password}" />
 
 	<!-- Service for initializing MongoDB with sample data using MongoTemplate -->
 	<!-- <bean id="initMongoService" class="org.krams.service.InitMongoService" 
