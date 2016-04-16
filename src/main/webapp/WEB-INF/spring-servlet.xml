@@ -26,20 +26,7 @@
 	<context:annotation-config />
 	<mvc:annotation-driven />
 	<mvc:resources mapping="/resources/**" location="/resources/" />
+	<bean id="deployProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean"  p:location="/WEB-INF/spring-data.properties" />
 	<import resource="spring-data.xml"/>
 
-	<bean id="deployProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean"  p:location="/WEB-INF/spring-data.properties" />
-					
-	<!-- Activate Spring Data MongoDB repository support -->
-	<mongo:repositories	base-package="br.com.art4dev.iples.impostometropessoal.repository" />
-
-	<!-- MongoDB host -->
-	<mongo:mongo host="${mongo.host.name}" port="${mongo.host.port}" />
-
-	<!-- Template for performing MongoDB operations -->
-	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate"
-		c:mongo-ref="mongo" c:databaseName="${mongo.db.name}" />
-	
-	<tx:annotation-driven />
-   
 </beans>
