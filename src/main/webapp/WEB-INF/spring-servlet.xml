@@ -20,12 +20,10 @@
 			http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd">
 
 	<context:component-scan base-package="br.com.art4dev.iples.impostometropessoal"/>
-
-	<context:property-placeholder location="classpath:spring-data.properties" />
-	
 	<context:annotation-config />
 	<mvc:annotation-driven />
 	<mvc:resources mapping="/resources/**" location="/resources/" />
+
 	<bean id="deployProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean"  p:location="/WEB-INF/spring-data.properties" />
 	<import resource="spring-data.xml"/>
 
@@ -33,16 +31,4 @@
    
    	<context:property-placeholder properties-ref="deployProperties" />
 
-	<!-- Activate Spring Data MongoDB repository support -->
-	<mongo:repositories	base-package="br.com.art4dev.iples.impostometropessoal.repository" />
-	
-	<!-- MongoDB host -->
-	<mongo:mongo id="mongo" host="${mongo.host.name}" port="${mongo.host.port}" />
-
-	<!-- Template for performing MongoDB operations -->
-	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate"
-		c:mongo-ref="mongo" c:databaseName="${mongo.db.name}" 
-	    c:username="${mongo.db.username}"  c:password="${mongo.db.password}" />
-		
-	
 </beans>

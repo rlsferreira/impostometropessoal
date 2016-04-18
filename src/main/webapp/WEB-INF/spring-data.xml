@@ -17,9 +17,8 @@
 			http://www.springframework.org/schema/util 
 			http://www.springframework.org/schema/util/spring-util-3.1.xsd">
 
-	<bean id="deployProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean"  p:location="/WEB-INF/spring-data.properties" />					
-	
-
+    <context:annotation-config />
+    
 	<!-- Service for initializing MongoDB with sample data using MongoTemplate -->
 	<!-- <bean id="initMongoService" class="org.krams.service.InitMongoService" 
 		init-method="init"/> -->
