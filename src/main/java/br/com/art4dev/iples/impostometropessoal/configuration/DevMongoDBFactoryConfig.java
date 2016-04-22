@@ -14,7 +14,7 @@ public class DevMongoDBFactoryConfig {
      * @see com.openshift.notebook.core.config.MongoDbConfig#mongoDbFactory()
      */
     @SuppressWarnings("deprecation")
-    @Bean
+   // @Bean
     public MongoDbFactory mongoDbFactory() throws Exception {
         Mongo mongo = new Mongo("localhost", 27017);
 		String databaseName = "impostometropessoaldb";
