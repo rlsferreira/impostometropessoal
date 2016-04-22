@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import javax.inject.Inject;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -20,6 +21,7 @@ import br.com.art4dev.iples.impostometropessoal.repository.UsuarioRepository;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { DevMongoDBFactoryConfig.class,MongoDbConfig.class })
 @ActiveProfiles("dev")
+@Ignore
 public class SpringInitTest {
 	
 	    @Inject
