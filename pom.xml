@@ -142,16 +142,9 @@
 			<version>4.12</version>
 		</dependency>
 	</dependencies>
-<!-- 	<profiles>
+ 	<profiles>
 		<profile>
 			<id>openshift</id>
-	        <activation>
-	            <activeByDefault>true</activeByDefault>
-	            <property>
-	                <name>spring.profiles.active</name>
-	                <value>openshift</value>
-	            </property>
-	        </activation>
 			<build>
 				<finalName>impostometropessoal</finalName>
 				<plugins>
@@ -166,7 +159,7 @@
 				</plugins>
 			</build>
 		</profile>
-		<profile>
+<!--  	<profile>
 			<id>dev</id>
 	        <activation>
 	            <property>
@@ -187,8 +180,8 @@
 					</plugin>
 				</plugins>
 			</build>
-		</profile>
-	</profiles> -->
+		</profile> -->
+	</profiles> 
 	<build>
 		<plugins>
 			<plugin>
