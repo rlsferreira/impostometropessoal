@@ -15,7 +15,8 @@ public class OpenShiftMongoDBFactoryConfig implements MongoDbFactoryConfig {
     @SuppressWarnings("deprecation")
     @Override
     public MongoDbFactory mongoDbFactory() throws Exception {
-        String openshiftMongoDbHost = System.getenv("OPENSHIFT_MONGODB_DB_HOST");
+ 
+    	String openshiftMongoDbHost = System.getenv("OPENSHIFT_MONGODB_DB_HOST");
         int openshiftMongoDbPort = Integer.parseInt(System.getenv("OPENSHIFT_MONGODB_DB_PORT"));
         String username = System.getenv("OPENSHIFT_MONGODB_DB_USERNAME");
         String password = System.getenv("OPENSHIFT_MONGODB_DB_PASSWORD");
@@ -24,6 +25,7 @@ public class OpenShiftMongoDBFactoryConfig implements MongoDbFactoryConfig {
         String databaseName = System.getenv("impostometropessoaldb");
         MongoDbFactory mongoDbFactory = new SimpleMongoDbFactory(mongo, databaseName, userCredentials);
         return mongoDbFactory;
+
     }
  
  	
