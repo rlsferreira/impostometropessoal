@@ -22,7 +22,7 @@ public class OpenShiftMongoDBFactoryConfig implements MongoDbFactoryConfig {
         String password = System.getenv("OPENSHIFT_MONGODB_DB_PASSWORD");
         Mongo mongo = new Mongo(openshiftMongoDbHost, openshiftMongoDbPort);
         UserCredentials userCredentials = new UserCredentials(username,password);
-        String databaseName = System.getenv("impostometropessoaldb");
+        String databaseName = System.getenv("OPENSHIFT_APP_NAME");
         MongoDbFactory mongoDbFactory = new SimpleMongoDbFactory(mongo, databaseName, userCredentials);
         return mongoDbFactory;
 
