@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ImportResource;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
 @org.springframework.context.annotation.Configuration
-@ImportResource("classpath:spring-data.xml")
+@ImportResource("classpath:**/*spring-servlet.xml")
 public class MongoDbConfig {
 	
 	@Inject

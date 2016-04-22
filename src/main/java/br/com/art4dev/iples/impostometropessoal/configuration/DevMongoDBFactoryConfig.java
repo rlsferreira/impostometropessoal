@@ -8,15 +8,16 @@ import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
 
 import com.mongodb.Mongo;
 
-@Configuration
-@Profile("dev")
-public class DevMongoDBFactoryConfig implements MongoDbFactoryConfig {
+//@Configuration
+//@Profile("dev")
+public class DevMongoDBFactoryConfig //implements MongoDbFactoryConfig
+{
  
     /* (non-Javadoc)
      * @see com.openshift.notebook.core.config.MongoDbConfig#mongoDbFactory()
      */
     @SuppressWarnings("deprecation")
-    @Override
+ //   @Override
     @Bean
     public MongoDbFactory mongoDbFactory() throws Exception {
         Mongo mongo = new Mongo("localhost", 27017);

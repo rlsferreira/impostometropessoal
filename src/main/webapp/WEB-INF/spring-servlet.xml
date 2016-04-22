@@ -20,15 +20,10 @@
 			http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd">
 
 	<context:component-scan base-package="br.com.art4dev.iples.impostometropessoal"/>
+
+    <mongo:repositories base-package="br.com.art4dev.iples.impostometropessoal" />
 	<context:annotation-config />
 	<mvc:annotation-driven />
-	<mvc:resources mapping="/resources/**" location="/resources/" />
-
-	<bean id="deployProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean"  p:location="/WEB-INF/spring-data.properties" />
-	<import resource="spring-data.xml"/>
-
 	<tx:annotation-driven />
-   
-   	<context:property-placeholder properties-ref="deployProperties" />
 
 </beans>

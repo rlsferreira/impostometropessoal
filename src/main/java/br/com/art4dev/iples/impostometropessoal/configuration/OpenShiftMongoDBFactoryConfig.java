@@ -4,11 +4,12 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.data.authentication.UserCredentials;
 import org.springframework.data.mongodb.MongoDbFactory;
 import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
+import org.springframework.context.annotation.Configuration;
 
 import com.mongodb.Mongo;
 
-@org.springframework.context.annotation.Configuration
-@Profile("openshift")
+@Configuration
+//@Profile("dev")
 public class OpenShiftMongoDBFactoryConfig implements MongoDbFactoryConfig {
  
     @SuppressWarnings("deprecation")
