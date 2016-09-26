@@ -1,9 +1,22 @@
-package br.com.art4dev.iples.impostometropessoal.model;
+package br.com.art4dev.iples.impostometropessoal.domain.tabela;
 
-import br.com.art4dev.iples.impostometropessoal.domain.ContratoTrabalho;
+import org.apache.commons.lang3.math.NumberUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.stereotype.Service;
 
-public class TabelaImpostos implements java.io.Serializable {
+import br.com.art4dev.iples.impostometropessoal.domain.ConstanteDomain;
+import br.com.art4dev.iples.impostometropessoal.domain.trabalho.ContratoTrabalho;
+import br.com.art4dev.iples.impostometropessoal.model.ImpostosFixos;
+import br.com.art4dev.iples.impostometropessoal.model.Inflacao;
+import br.com.art4dev.iples.impostometropessoal.model.Range;
+
+@Service
+@Configurable
+public class TabelaImpostos  {
 	
+    private static final long serialVersionUID = -4006065985316916604L;
+    
 	private ContratoTrabalho[]	contratoTrabalho;
 	private float	           totalRendaTrabalho;
 	private float	           totalInssTrabalho;
@@ -25,6 +38,10 @@ public class TabelaImpostos implements java.io.Serializable {
 	private float	           educacao;
 	private float	           outros;
 	
+	private float              percentualImpostosParaGovernoMunicipal;  
+	private float              percentualImpostosParaGovernoEstadual;  
+	private float              percentualImpostosParaGovernoFederal;  
+	
 	private float	           impostosValorTotalImoveis;
 	private float	           impostosValorTotalVeiculos;
 	
@@ -45,8 +62,15 @@ public class TabelaImpostos implements java.io.Serializable {
 	private float	           valorTotalGastosMensais;
 	private float	           valorTotalImpostosSobreGastosMensais;
 	private float	           porcentagemImpostosTotalSobreRenda;
+	private float	           valorTotalImpostosPagos;
+	private float	           valorImpostosParaGovernoEstadual;
+	private float	           valorImpostosParaGovernoFederal;
+	private float	           valorImpostosParaGovernoMunicipal;
 	
 	private Range	           rangeFatorCompensacao	= new Range(100);
+	
+	@Autowired
+	private ConstanteDomain	   constanteDomain;
 	
 	public TabelaImpostos() {
 		
@@ -63,6 +87,15 @@ public class TabelaImpostos implements java.io.Serializable {
 		
 	}
 	
+	public void calcula() {
+		
+		processaContratosTrabalho();
+		processaInflacao();
+		processaImpostosSobreConsumo();
+		processaResumo();
+		processaImpostosPorEntidadeFederativa();
+	}
+
 	private void processaContratosTrabalho() {
 		
 		this.totalRendaTrabalho = 0;
@@ -93,11 +126,8 @@ public class TabelaImpostos implements java.io.Serializable {
 		
 	}
 	
-	public void calcula() {
-		
-		processaContratosTrabalho();
-		processaInflacao();
-		
+	
+	private void processaImpostosSobreConsumo() {
 		impostosAluguel = aluguel
 		        * (ImpostosFixos.SOBRE_ALUGUEL.getValorPercentualMin() + (ImpostosFixos.SOBRE_ALUGUEL.getValorPercentualMax() - ImpostosFixos.SOBRE_ALUGUEL
 		                .getValorPercentualMin()) * rangeFatorCompensacao.getFator(totalRendaTrabalho));
@@ -150,9 +180,6 @@ public class TabelaImpostos implements java.io.Serializable {
 		impostosValorTotalVeiculos = valorTotalVeiculos
 		        * (ImpostosFixos.SOBRE_VEICULOS.getValorPercentualMin() + (ImpostosFixos.SOBRE_VEICULOS.getValorPercentualMax() - ImpostosFixos.SOBRE_VEICULOS
 		                .getValorPercentualMin()) * rangeFatorCompensacao.getFator(totalRendaTrabalho));
-		
-		processaResumo();
-		
 	}
 	
 	private void processaResumo() {
@@ -173,6 +200,13 @@ public class TabelaImpostos implements java.io.Serializable {
 		        + impostosSupermercado + impostosTransporte + impostosVestuario)
 		        / totalRendaTrabalho;
 		
+		valorTotalImpostosPagos = valorTotalImpostosTrabalho + valorTotalImpostosSobreGastosMensais;
+	}
+	
+	private void processaImpostosPorEntidadeFederativa() {
+		valorImpostosParaGovernoFederal = this.getPercentualImpostosParaGovernoFederal() / 100 * this.getValorTotalImpostosPagos() ;
+		valorImpostosParaGovernoEstadual = this.getPercentualImpostosParaGovernoEstadual() / 100 * this.getValorTotalImpostosPagos();
+		valorImpostosParaGovernoMunicipal = this.getPercentualImpostosParaGovernoMunicipal() / 100 * this.getValorTotalImpostosPagos();
 	}
 	
 	public float getImpostosValorTotalImoveis() {
@@ -221,6 +255,30 @@ public class TabelaImpostos implements java.io.Serializable {
 	
 	public void setOutros(float outros) {
 		this.outros = outros;
+	}
+	
+	public float getPercentualImpostosParaGovernoMunicipal() {
+		return percentualImpostosParaGovernoMunicipal;
+	}
+	
+	public void setPercentualImpostosParaGovernoMunicipal(float percentualImpostosParaGovernoMunicipal) {
+		this.percentualImpostosParaGovernoMunicipal = percentualImpostosParaGovernoMunicipal;
+	}
+	
+	public float getPercentualImpostosParaGovernoEstadual() {
+		return percentualImpostosParaGovernoEstadual;
+	}
+	
+	public void setPercentualImpostosParaGovernoEstadual(float percentualImpostosParaGovernoEstadual) {
+		this.percentualImpostosParaGovernoEstadual = percentualImpostosParaGovernoEstadual;
+	}
+	
+	public float getPercentualImpostosParaGovernoFederal() {
+		return percentualImpostosParaGovernoFederal;
+	}
+	
+	public void setPercentualImpostosParaGovernoFederal(float percentualImpostosParaGovernoFederal) {
+		this.percentualImpostosParaGovernoFederal = percentualImpostosParaGovernoFederal;
 	}
 	
 	public void setValorTotalImoveis(float valorTotalImoveis) {
@@ -323,6 +381,38 @@ public class TabelaImpostos implements java.io.Serializable {
 		return porcentagemImpostosTotalSobreRenda;
 	}
 	
+	public float getValorTotalImpostosPagos() {
+		return valorTotalImpostosPagos;
+	}
+	
+	public void setValorTotalImpostosPagos(float valorTotalImpostosPagos) {
+		this.valorTotalImpostosPagos = valorTotalImpostosPagos;
+	}
+	
+	public float getValorImpostosParaGovernoEstadual() {
+		return valorImpostosParaGovernoEstadual;
+	}
+
+	public void setValorImpostosParaGovernoEstadual(float valorImpostosParaGovernoEstadual) {
+		this.valorImpostosParaGovernoEstadual = valorImpostosParaGovernoEstadual;
+	}
+
+	public float getValorImpostosParaGovernoFederal() {
+		return valorImpostosParaGovernoFederal;
+	}
+
+	public void setValorImpostosParaGovernoFederal(float valorImpostosParaGovernoFederal) {
+		this.valorImpostosParaGovernoFederal = valorImpostosParaGovernoFederal;
+	}
+
+	public float getValorImpostosParaGovernoMunicipal() {
+		return valorImpostosParaGovernoMunicipal;
+	}
+
+	public void setValorImpostosParaGovernoMunicipal(float valorImpostosParaGovernoMunicipal) {
+		this.valorImpostosParaGovernoMunicipal = valorImpostosParaGovernoMunicipal;
+	}
+
 	public void addContratoTrabalho(ContratoTrabalho contrato) {
 		
 		if (this.contratoTrabalho == null) {

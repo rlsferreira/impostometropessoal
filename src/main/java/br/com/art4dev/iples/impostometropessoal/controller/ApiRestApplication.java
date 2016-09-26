@@ -13,7 +13,7 @@ public class ApiRestApplication //extends Application
 	private Set<Class<?>> empty = new HashSet<Class<?>>();
 
 	public ApiRestApplication() {
-		singletons.add(new CalculoImpostos());
+		singletons.add(new CalculoImpostosController());
 	}
 
 //	@Override

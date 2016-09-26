@@ -4,7 +4,10 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import org.springframework.data.annotation.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+
+import org.springframework.data.annotation.Id; 
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -18,7 +21,8 @@ public class Usuario implements Serializable {
 	private static final long	serialVersionUID	= 1678927219803427533L;
 	
 	@Id
-	private Long	          id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+	private String	          id;
 	
 	private String	          fbId;
 	private String	          nome;
@@ -96,6 +100,18 @@ public class Usuario implements Serializable {
 
 	@JsonFormat(shape = JsonFormat.Shape.SCALAR)
 	private BigDecimal	      porcentagemImpostosTotalSobreRenda;
+
+	@JsonFormat(shape = JsonFormat.Shape.SCALAR)
+	private BigDecimal	      valorTotalImpostosPagos;
+
+	@JsonFormat(shape = JsonFormat.Shape.SCALAR)
+	private BigDecimal	      valorImpostosParaGovernoEstadual;
+
+	@JsonFormat(shape = JsonFormat.Shape.SCALAR)
+	private BigDecimal	      valorImpostosParaGovernoFederal;
+
+	@JsonFormat(shape = JsonFormat.Shape.SCALAR)
+	private BigDecimal	      valorImpostosParaGovernoMunicipal;	
 	
 	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
 	private Date	          dataEntrada;
@@ -110,11 +126,11 @@ public class Usuario implements Serializable {
 		this.fbId = fbid;
 	}
 	
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 	
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	
@@ -342,10 +358,38 @@ public class Usuario implements Serializable {
 		this.porcentagemImpostosTotalSobreRenda = porcentagemImpostosTotalSobreRenda;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public BigDecimal getValorTotalImpostosPagos() {
+		return valorTotalImpostosPagos;
 	}
-	
+
+	public void setValorTotalImpostosPagos(BigDecimal valorTotalImpostosPagos) {
+		this.valorTotalImpostosPagos = valorTotalImpostosPagos;
+	}
+
+	public BigDecimal getValorImpostosParaGovernoEstadual() {
+		return valorImpostosParaGovernoEstadual;
+	}
+
+	public void setValorImpostosParaGovernoEstadual(BigDecimal valorImpostosParaGovernoEstadual) {
+		this.valorImpostosParaGovernoEstadual = valorImpostosParaGovernoEstadual;
+	}
+
+	public BigDecimal getValorImpostosParaGovernoFederal() {
+		return valorImpostosParaGovernoFederal;
+	}
+
+	public void setValorImpostosParaGovernoFederal(BigDecimal valorImpostosParaGovernoFederal) {
+		this.valorImpostosParaGovernoFederal = valorImpostosParaGovernoFederal;
+	}
+
+	public BigDecimal getValorImpostosParaGovernoMunicipal() {
+		return valorImpostosParaGovernoMunicipal;
+	}
+
+	public void setValorImpostosParaGovernoMunicipal(BigDecimal valorImpostosParaGovernoMunicipal) {
+		this.valorImpostosParaGovernoMunicipal = valorImpostosParaGovernoMunicipal;
+	}
+
 	public Date getDataEntrada() {
 		return dataEntrada;
 	}
@@ -353,16 +397,21 @@ public class Usuario implements Serializable {
 	public void setDataEntrada(Date dataEntrada) {
 		this.dataEntrada = dataEntrada;
 	}
-	
+
 	@Override
-	public String toString() {
-		return String
-		        .format("Usuario [id=%s, fbId=%s, nome=%s, postar=%s, comentario=%s, nextDay=%s, nextHour=%s, impostosValorTotalImoveis=%s, impostosValorTotalVeiculos=%s, impostosAluguel=%s, impostosFinanciamentoImovel=%s, impostosFinanciamentoVeiculo=%s, impostosSupermercado=%s, impostosConcessionarias=%s, impostosSaude=%s, impostosTransporte=%s, impostosVestuario=%s, impostosEducacao=%s, impostosOutros=%s, totalRendaTrabalho=%s, totalInssTrabalho=%s, totalIRTrabalho=%s, totalBurocraciaTrabalho=%s, totalTributosEmpresaTrabalho=%s, totalPerdaInflacaoPorAno=%s, dataEntrada=%s]",
-		                id, fbId, nome, postar, comentario, nextDay, nextHour, impostosValorTotalImoveis,
-		                impostosValorTotalVeiculos, impostosAluguel, impostosFinanciamentoImovel, impostosFinanciamentoVeiculo,
-		                impostosSupermercado, impostosConcessionarias, impostosSaude, impostosTransporte, impostosVestuario,
-		                impostosEducacao, impostosOutros, totalRendaTrabalho, totalInssTrabalho, totalIRTrabalho,
-		                totalBurocraciaTrabalho, totalTributosEmpresaTrabalho, totalPerdaInflacaoPorAno, dataEntrada);
-	}
+    public String toString() {
+	    return String
+	            .format("Usuario [id=%s, fbId=%s, nome=%s, postar=%s, comentario=%s, nextDay=%s, nextHour=%s, impostosValorTotalImoveis=%s, impostosValorTotalVeiculos=%s, impostosAluguel=%s, impostosFinanciamentoImovel=%s, impostosFinanciamentoVeiculo=%s, impostosSupermercado=%s, impostosConcessionarias=%s, impostosSaude=%s, impostosTransporte=%s, impostosVestuario=%s, impostosEducacao=%s, impostosOutros=%s, totalRendaTrabalho=%s, totalInssTrabalho=%s, totalIRTrabalho=%s, totalBurocraciaTrabalho=%s, totalTributosEmpresaTrabalho=%s, totalPerdaInflacaoPorAno=%s, valorTotalImpostosTrabalho=%s, porcentagemImpostosTrabalho=%s, valorTotalGastosMensais=%s, valorTotalImpostosSobreGastosMensais=%s, porcentagemImpostosTotalSobreRenda=%s, valorTotalImpostosPagos=%s, valorImpostosParaGovernoEstadual=%s, valorImpostosParaGovernoFederal=%s, valorImpostosParaGovernoMunicipal=%s, dataEntrada=%s]",
+	                    id, fbId, nome, postar, comentario, nextDay, nextHour, impostosValorTotalImoveis,
+	                    impostosValorTotalVeiculos, impostosAluguel, impostosFinanciamentoImovel, impostosFinanciamentoVeiculo,
+	                    impostosSupermercado, impostosConcessionarias, impostosSaude, impostosTransporte, impostosVestuario,
+	                    impostosEducacao, impostosOutros, totalRendaTrabalho, totalInssTrabalho, totalIRTrabalho,
+	                    totalBurocraciaTrabalho, totalTributosEmpresaTrabalho, totalPerdaInflacaoPorAno,
+	                    valorTotalImpostosTrabalho, porcentagemImpostosTrabalho, valorTotalGastosMensais,
+	                    valorTotalImpostosSobreGastosMensais, porcentagemImpostosTotalSobreRenda, valorTotalImpostosPagos,
+	                    valorImpostosParaGovernoEstadual, valorImpostosParaGovernoFederal, valorImpostosParaGovernoMunicipal,
+	                    dataEntrada);
+    }
+	
 	
 }

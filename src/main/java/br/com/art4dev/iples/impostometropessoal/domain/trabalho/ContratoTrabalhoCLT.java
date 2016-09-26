@@ -1,4 +1,4 @@
-package br.com.art4dev.iples.impostometropessoal.domain;
+package br.com.art4dev.iples.impostometropessoal.domain.trabalho;
 
 import br.com.art4dev.iples.impostometropessoal.model.Range;
 import br.com.art4dev.iples.impostometropessoal.model.Renda;

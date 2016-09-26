@@ -25,5 +25,7 @@
 	<context:annotation-config />
 	<mvc:annotation-driven />
 	<tx:annotation-driven />
-
+	<mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>
+	<mvc:resources location="/resources/" mapping="/resources/**" />
+		
 </beans>

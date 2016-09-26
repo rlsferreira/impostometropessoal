@@ -1,15 +1,15 @@
-package br.com.art4dev.iples.impostometropessoal.domain;
+package br.com.art4dev.iples.impostometropessoal.domain.trabalho;
 
 import br.com.art4dev.iples.impostometropessoal.model.Range;
 import br.com.art4dev.iples.impostometropessoal.model.Renda;
 
-public class ContratoTrabalhoAposentadoria implements ContratoTrabalho {
+public class ContratoTrabalhoLiberalInformal implements ContratoTrabalho {
 
 	private Renda renda = new Renda();
 	private Range rangeIR = new Range(0f);
 	private boolean isCalculoEfetuado = false;
 
-	public ContratoTrabalhoAposentadoria() {
+	public ContratoTrabalhoLiberalInformal() {
 		setUp();
 	}
 

@@ -1,10 +1,9 @@
 package br.com.art4dev.iples.impostometropessoal.configuration;
 
-import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.data.authentication.UserCredentials;
 import org.springframework.data.mongodb.MongoDbFactory;
 import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
-import org.springframework.context.annotation.Configuration;
 
 import com.mongodb.Mongo;
 

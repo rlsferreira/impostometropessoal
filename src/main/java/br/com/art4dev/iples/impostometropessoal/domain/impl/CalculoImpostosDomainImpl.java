@@ -1,22 +1,16 @@
-package br.com.art4dev.iples.impostometropessoal.domain;
+package br.com.art4dev.iples.impostometropessoal.domain.impl;
 
-import java.math.BigDecimal;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.art4dev.iples.impostometropessoal.model.TabelaImpostos;
+import br.com.art4dev.iples.impostometropessoal.domain.CalculoImpostosDomain;
+import br.com.art4dev.iples.impostometropessoal.domain.tabela.TabelaImpostos;
 import br.com.art4dev.iples.impostometropessoal.model.Usuario;
-import br.com.art4dev.iples.impostometropessoal.repository.UsuarioRepository;
 
 @Service
 public class CalculoImpostosDomainImpl implements CalculoImpostosDomain {
-	
-	@Autowired
-	private UsuarioRepository	usuarioRepository;
 	
 	/*
 	 * (non-Javadoc)
@@ -55,11 +49,6 @@ public class CalculoImpostosDomainImpl implements CalculoImpostosDomain {
 		usuario.setImpostosOutros(new BigDecimal(tabelaImpostos.getImpostosOutros()).setScale(2, BigDecimal.ROUND_HALF_UP));
 		usuario.setTotalPerdaInflacaoPorAno(new BigDecimal(tabelaImpostos.getTotalInflacao()).setScale(2, BigDecimal.ROUND_HALF_UP));
 		
-		usuario.setTotalPerdaInflacaoPorAno(new BigDecimal(tabelaImpostos.getTotalInflacao()).setScale(2, BigDecimal.ROUND_HALF_UP));
-		usuario.setTotalPerdaInflacaoPorAno(new BigDecimal(tabelaImpostos.getTotalInflacao()).setScale(2, BigDecimal.ROUND_HALF_UP));
-		usuario.setTotalPerdaInflacaoPorAno(new BigDecimal(tabelaImpostos.getTotalInflacao()).setScale(2, BigDecimal.ROUND_HALF_UP));
-		usuario.setTotalPerdaInflacaoPorAno(new BigDecimal(tabelaImpostos.getTotalInflacao()).setScale(2, BigDecimal.ROUND_HALF_UP));
-		usuario.setTotalPerdaInflacaoPorAno(new BigDecimal(tabelaImpostos.getTotalInflacao()).setScale(2, BigDecimal.ROUND_HALF_UP));
 
 		usuario.setValorTotalImpostosTrabalho(new BigDecimal(tabelaImpostos.getValorTotalImpostosTrabalho()).setScale(2, BigDecimal.ROUND_HALF_UP));
 		usuario.setPorcentagemImpostosTrabalho(new BigDecimal(tabelaImpostos.getPorcentagemImpostosTrabalho()).setScale(5, BigDecimal.ROUND_HALF_UP));
@@ -67,52 +56,16 @@ public class CalculoImpostosDomainImpl implements CalculoImpostosDomain {
 		usuario.setValorTotalImpostosSobreGastosMensais(new BigDecimal(tabelaImpostos.getValorTotalImpostosSobreGastosMensais()).setScale(2, BigDecimal.ROUND_HALF_UP));
 		usuario.setPorcentagemImpostosTotalSobreRenda(new BigDecimal(tabelaImpostos.getPorcentagemImpostosTotalSobreRenda()).setScale(5, BigDecimal.ROUND_HALF_UP));
 
+		usuario.setValorTotalImpostosPagos(new BigDecimal(tabelaImpostos.getValorTotalImpostosPagos()).setScale(5, BigDecimal.ROUND_HALF_UP));
+		usuario.setValorImpostosParaGovernoEstadual(new BigDecimal(tabelaImpostos.getValorImpostosParaGovernoEstadual()).setScale(5, BigDecimal.ROUND_HALF_UP));
+		usuario.setValorImpostosParaGovernoFederal(new BigDecimal(tabelaImpostos.getValorImpostosParaGovernoFederal()).setScale(5, BigDecimal.ROUND_HALF_UP));
+		usuario.setValorImpostosParaGovernoMunicipal(new BigDecimal(tabelaImpostos.getValorImpostosParaGovernoMunicipal()).setScale(5, BigDecimal.ROUND_HALF_UP));
+
 		
 		usuario.setDataEntrada(new Date());
 		
 		return usuario;
 	}
 	
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * br.com.art4dev.iples.impostometropessoal.domain.CalculoImpostosDomain
-	 * #getAllUsuarios()
-	 */
-	@Override
-	public List<Usuario> getAllUsuarios() {
-		return usuarioRepository.findAll();
-	}
-	
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * br.com.art4dev.iples.impostometropessoal.domain.CalculoImpostosDomain
-	 * #getUsuarioById(java.lang.String)
-	 */
-	@Override
-	public Usuario getUsuarioById(Long fbid) {
-		return usuarioRepository.findById(fbid);
-	}
-	
-	@Override
-	public Usuario save(Long id, String nome, String comentario, boolean postar, Usuario usuario) throws Exception {
-		
-		Usuario usuarioExistente = usuarioRepository.findById(id);
-		if (usuarioExistente != null) {
-			id = usuarioExistente.getId();
-		}
-		
-		usuario.setId(id);
-		usuario.setNome(nome);
-		usuario.setComentario(comentario);
-		usuario.setPostar(postar);
-		
-		usuarioRepository.save(usuario);
-		return usuario;
-		
-	}
 	
 }
